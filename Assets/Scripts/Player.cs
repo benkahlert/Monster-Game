@@ -1,28 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using ECM.Controllers;
 
-public class Player : MonoBehaviour
+public class Player : BaseCharacterController
 {
-    public float speed = 10f;
+    #region METHODS
 
-    private void Awake()
+    /// <summary>
+    /// Overrides 'BaseCharacterController' HandleInput,
+    /// to perform custom controller input.
+    /// </summary>
+
+    protected override void HandleInput()
     {
-
+        moveDirection = new Vector3
+        {
+            x = Input.GetAxisRaw("Horizontal"),
+            y = 0.0f,
+            z = Input.GetAxisRaw("Vertical")
+        };
+        jump = Input.GetButton("Jump");
     }
 
-    private void Update()
-    {
-        if (Input.GetKey(KeyCode.D))
-            transform.Translate(Vector3.right * speed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.A))
-            transform.Translate(Vector3.left * speed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.S))
-            transform.Translate(Vector3.back * speed * Time.deltaTime);
-
-        if (Input.GetKey(KeyCode.W))
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
-    }
+    #endregion
 }
